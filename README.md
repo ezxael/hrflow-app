@@ -65,18 +65,6 @@ Open <http://localhost:3000>.
 
 Other demo employees use `Welcome123!`.
 
-## Deploy to Vercel
-
-Import the GitHub repository into Vercel. Vercel reads `vercel.json` and deploys the static interface and Node.js API. The project needs no build command.
-
-Add these environment variables in Vercel project settings:
-
-- `SUPABASE_URL`
-- `SUPABASE_SECRET_KEY`
-- `HRFLOW_SESSION_SECRET`
-
-Set them for Production and Preview deployments. Run the schema once in Supabase. Seed demo data only if the database is empty.
-
 ## Data and limits
 
 The app stores demo data in Supabase. It does not send email or support password resets or multi-factor authentication. Leave requests count calendar days, including weekends. Use demo accounts and sample data for this prototype.
