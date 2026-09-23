@@ -1,63 +1,82 @@
 # HRFlow
 
-HRFlow is a Node.js HR prototype for employee records, leave approvals, and work schedules. The API stores shared application data in Supabase Postgres; the browser never receives the Supabase secret key.
+HRFlow helps a small team manage employee records, leave requests, and work shifts. Admins manage the team. Employees view their leave balances, requests, schedules, and notifications.
 
-## Configure Supabase
+## What the app includes
+
+- Admin and employee dashboards.
+- Employee records, departments, and positions.
+- Leave requests, approvals, balances, and history.
+- Shift setup and employee schedules.
+- Schedule conflict checks and in-app notifications.
+- A responsive interface for desktop and mobile.
+
+## Stack
+
+- Node.js 20 or later serves the API.
+- Static HTML, CSS, and JavaScript serve the interface from `public/`.
+- Supabase Postgres stores shared app data.
+- Vercel serves the interface and runs the API function in `api/rpc.js`.
+
+The app uses no runtime npm packages. The server uses Node's built-in `fetch` to call Supabase. The browser never receives the Supabase secret key.
+
+## Set up Supabase
 
 1. Create a Supabase project.
-2. In Supabase Dashboard, open **SQL Editor**, paste the contents of [`supabase/schema.sql`](supabase/schema.sql), and run it.
-3. Copy `.env.example` to `.env`. Set `SUPABASE_URL` to the project URL and `SUPABASE_SECRET_KEY` to the project's secret key. Set `HRFLOW_SESSION_SECRET` to a long random value. Keep these values private and out of source control.
-4. Seed demonstration records once:
+2. Open **SQL Editor** in the Supabase Dashboard. Run [`supabase/schema.sql`](supabase/schema.sql).
+3. Copy the example environment file:
 
    ```powershell
-   npm run seed:demo
+   Copy-Item .env.example .env
    ```
 
-   The command refuses to seed if it finds existing HRFlow records. It is for a fresh project only.
+4. Edit `.env`. Add your Supabase project URL, server-side secret key, and a long session secret:
 
-5. Start the local app:
-
-   ```powershell
-   npm run dev
+   ```env
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_SECRET_KEY=your-server-side-secret-key
+   HRFLOW_SESSION_SECRET=your-long-random-session-secret
    ```
 
-   Open <http://localhost:3000>.
+Keep `.env` private. Git ignores it.
 
-### Demo accounts
+## Add demo data
 
-| Role | Email | Password |
+Run this command once, after you create the schema in an empty database:
+
+```powershell
+npm run seed:demo
+```
+
+The seed command stops if it finds existing HRFlow data. It will not replace that data.
+
+## Run the app
+
+```powershell
+npm run dev
+```
+
+Open <http://localhost:3000>.
+
+| Account | Email | Password |
 | --- | --- | --- |
 | Admin | `maya@hrflow.local` | `Admin123!` |
 | Employee | `daniel@hrflow.local` | `Employee123!` |
 
-Other seeded employees use `Welcome123!`. The Add employee form uses that password by default in this prototype.
-
-## Included workflows
-
-- Role-specific admin and employee dashboards.
-- Employee search, creation, editing, department and position management, deactivation, and reactivation.
-- Leave request submission, overlap and balance checks, admin approval and rejection, employee leave history, and balance updates.
-- Shift creation, assignment, editing, deactivation, overnight shifts, and overlap checks.
-- Schedule warnings when an employee has approved leave.
-- In-app notifications for leave and schedule changes.
-- Responsive layouts for desktop, tablet, and mobile.
-
-Leave requests currently count calendar days, including weekends. Seed balances and the sample organization are demo values; adjust them before using the app with real employees.
+Other demo employees use `Welcome123!`.
 
 ## Deploy to Vercel
 
-Import the repository into Vercel. It serves the static UI from `public/` and routes API requests to the Node.js serverless function in `api/rpc.js`. No build step or runtime package dependencies are required.
+Import the GitHub repository into Vercel. Vercel reads `vercel.json` and deploys the static interface and Node.js API. The project needs no build command.
 
-Set these environment variables in Vercel for each environment you use:
+Add these environment variables in Vercel project settings:
 
 - `SUPABASE_URL`
 - `SUPABASE_SECRET_KEY`
 - `HRFLOW_SESSION_SECRET`
 
-Run the schema SQL once and seed the hosted Supabase project with `npm run seed:demo` from a trusted local machine. Do not seed a live database that already contains records. Supabase provides persistent shared data across Vercel function instances. The app uses the secret key only in Node.js and calls two restricted database functions; the functions run the full-state update atomically and reject stale writes.
+Set them for Production and Preview deployments. Run the schema once in Supabase. Seed demo data only if the database is empty.
 
-## Notes
+## Data and limits
 
-The SQL schema enables row level security and grants no direct table access to browser roles. Only the server-side Supabase secret key can call the HRFlow database functions. Supabase's current secret keys are preferred; the server also accepts `SUPABASE_SERVICE_ROLE_KEY` for projects still using the legacy key name. Both bypass row-level security and must never be exposed to browser code.
-
-The seeded accounts are for demonstration only. The app does not include email delivery, password reset, multi-factor authentication, or production identity management.
+The app stores demo data in Supabase. It does not send email or support password resets or multi-factor authentication. Leave requests count calendar days, including weekends. Use demo accounts and sample data for this prototype.
