@@ -1,7 +1,9 @@
 # HRFlow
 <img width="277" height="97" alt="image" src="https://github.com/user-attachments/assets/4a3809bc-dc7c-47d0-93cc-7660b2964c7b" />
-hrflow-app-one.vercel.app
 
+
+
+https://hrflow-app-one.vercel.app
 HRFlow helps a small team manage employee records, leave requests, and work shifts. Admins manage the team. Employees view their leave balances, requests, schedules, and notifications.
 
 ## What the app includes
