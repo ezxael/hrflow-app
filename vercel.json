@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/api/session", "destination": "/api/rpc?__path=session" },
+    { "source": "/api/auth/:path*", "destination": "/api/rpc?__path=auth/:path*" },
+    { "source": "/api/admin/:path*", "destination": "/api/rpc?__path=admin/:path*" },
+    { "source": "/api/notifications/:path*", "destination": "/api/rpc?__path=notifications/:path*" },
+    { "source": "/api/leave-requests/:path*", "destination": "/api/rpc?__path=leave-requests/:path*" },
+    { "source": "/api/schedules/:path*", "destination": "/api/rpc?__path=schedules/:path*" },
+    { "source": "/api/employees/:path*", "destination": "/api/rpc?__path=employees/:path*" },
+    { "source": "/api/departments/:path*", "destination": "/api/rpc?__path=departments/:path*" },
+    { "source": "/api/positions/:path*", "destination": "/api/rpc?__path=positions/:path*" },
+    { "source": "/api/leave-types/:path*", "destination": "/api/rpc?__path=leave-types/:path*" },
+    { "source": "/api/shifts/:path*", "destination": "/api/rpc?__path=shifts/:path*" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "hrflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A lightweight HR dashboard prototype for employee records, leave and shifts.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "seed:demo": "node server/seed.js"
+  }
+}
