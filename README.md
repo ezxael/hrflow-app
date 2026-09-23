@@ -1,4 +1,5 @@
 # HRFlow
+<img width="281" height="103" alt="image" src="https://github.com/user-attachments/assets/c78924b0-1db9-4eaf-8b33-5f31d004d4a4" />
 
 HRFlow helps a small team manage employee records, leave requests, and work shifts. Admins manage the team. Employees view their leave balances, requests, schedules, and notifications.
 
@@ -20,50 +21,6 @@ HRFlow helps a small team manage employee records, leave requests, and work shif
 
 The app uses no runtime npm packages. The server uses Node's built-in `fetch` to call Supabase. The browser never receives the Supabase secret key.
 
-## Set up Supabase
-
-1. Create a Supabase project.
-2. Open **SQL Editor** in the Supabase Dashboard. Run [`supabase/schema.sql`](supabase/schema.sql).
-3. Copy the example environment file:
-
-   ```powershell
-   Copy-Item .env.example .env
-   ```
-
-4. Edit `.env`. Add your Supabase project URL, server-side secret key, and a long session secret:
-
-   ```env
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_SECRET_KEY=your-server-side-secret-key
-   HRFLOW_SESSION_SECRET=your-long-random-session-secret
-   ```
-
-Keep `.env` private. Git ignores it.
-
-## Add demo data
-
-Run this command once, after you create the schema in an empty database:
-
-```powershell
-npm run seed:demo
-```
-
-The seed command stops if it finds existing HRFlow data. It will not replace that data.
-
-## Run the app
-
-```powershell
-npm run dev
-```
-
-Open <http://localhost:3000>.
-
-| Account | Email | Password |
-| --- | --- | --- |
-| Admin | `maya@hrflow.local` | `Admin123!` |
-| Employee | `daniel@hrflow.local` | `Employee123!` |
-
-Other demo employees use `Welcome123!`.
 
 ## Data and limits
 
